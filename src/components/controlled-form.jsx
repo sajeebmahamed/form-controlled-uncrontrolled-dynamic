@@ -1,16 +1,27 @@
-import React from 'react';
+import React from 'react'
 
-class Uncontrolled extends React.Component {
-    handleSubmit = event => {
-        event.preventDefault()
-        const data = {}
-        data.name = event.target.name.value
-        data.email = event.target.email.value
-        data.password = event.target.password.value
-        console.log(data);
-        event.target.reset()
+class Controlled extends React.Component {
+    state = {
+        name: '',
+        email: '',
+        password: '',
+    }
+    handleChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+    handleSubmit = e => {
+        e.preventDefault()
+        console.log(this.state)
+        this.setState({ 
+            name: '',
+            email: '',
+            password: ''
+         })
     }
     render() {
+        const { name, email, password } = this.state
         return (
             <div>
                 <h1> Uncontrolled Form </h1>
@@ -20,18 +31,24 @@ class Uncontrolled extends React.Component {
                         type='text'
                         name='name'
                         placeholder='Enter name'
+                        value={name}
+                        onChange={this.handleChange}
                     />
                     <input
                         className='form-control'
                         type='email'
                         name='email'
                         placeholder='Enter email'
+                        value={email}
+                        onChange={this.handleChange}
                     />
                     <input
                         className='form-control'
                         type='password'
                         name='password'
                         placeholder='Enter password'
+                        value={password}
+                        onChange={this.handleChange}
                     />
                     <button type='submit'> Submit </button>
                 </form>
@@ -39,4 +56,5 @@ class Uncontrolled extends React.Component {
         )
     }
 }
-export default Uncontrolled
+
+export default Controlled
